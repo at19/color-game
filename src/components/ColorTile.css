@@ -1,0 +1,7 @@
+.tile {
+  background-color: hsl(0, 0%, 10%);
+  padding: 5em;
+  max-width: 5em;
+  margin: 1.5em;
+  transition: background-color 0.3s ease-out;
+}
