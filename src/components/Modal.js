@@ -8,6 +8,7 @@ export default props => {
         <p>Points: {props.points}</p>
       </div>
       <div className="modal__overlay" />
+      <div className="modal__overlay" onClick={() => props.playAgain()} />
     </div>
   );
 };

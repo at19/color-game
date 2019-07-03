@@ -21,7 +21,7 @@ const Play = props => {
 
   function getGameOverModal() {
     if (gameOver) {
-      const modal = <Modal points={points} />;
+      const modal = <Modal points={points} playAgain={playAgain} />;
       return modal;
     }
   }
@@ -66,6 +66,11 @@ const Play = props => {
 
   function resetColors(difficulty) {
     setColorData(getColorData(difficulty, props.colorPattern));
+  }
+
+  function playAgain() {
+    setPoints(values.MIN_POINTS);
+    setColorData(getColorData(values.ENTRY_DIFFICULTY, props.colorPattern));
   }
 
   function onColorsClick(e) {

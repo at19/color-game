@@ -3,7 +3,7 @@ export const MAX_SATURATION_VALUE = 90;
 export const MAX_LIGHTNESS_VALUE = 85;
 export const MIN_LIGHTNESS_VALUE = 7;
 
-export const MAX_RGB_VALUE = 255;
+export const MAX_RGB_VALUE = 200;
 
 export const DIFFICULTIES = [
   {
@@ -52,7 +52,7 @@ export const COLOR_PATTERNS = {
 };
 
 export const MIN_POINTS = 0;
-export const ENTRY_DIFFICULTY = 1;
+export const ENTRY_DIFFICULTY = 0;
 export const MAX_TRIES = 5;
 
 export const POINTS_ADDITION = 10;

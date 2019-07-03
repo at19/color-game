@@ -1,16 +1,24 @@
 import * as values from "./values";
 
-const _factor = Math.floor(Math.random() * 10);
+const _factor = Math.floor(Math.random() * 16) + 5;
 const randomFactor = Math.round(Math.random()) ? _factor : -_factor;
 
-const hexToRgb = hex =>
-  /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i
-    .exec(hex)
-    .slice(1)
-    .map(e => parseInt(e, 16));
+function hexToRgb(hex) {
+  const bigint = parseInt(hex.slice(1), 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
 
-const rgbToHex = rgb =>
-  "#" + rgb.map(x => x.toString(16).padStart(2, "0")).join("");
+  return [r, g, b];
+}
+
+const randomColorRGB = () => {
+  const red = Math.floor(Math.random() * values.MAX_RGB_VALUE) + 1;
+  const green = Math.floor(Math.random() * values.MAX_RGB_VALUE) + 1;
+  const blue = Math.floor(Math.random() * values.MAX_RGB_VALUE) + 1;
+
+  return [red, green, blue];
+};
 
 const randomColor = colorPattern => {
   switch (colorPattern) {
@@ -28,14 +36,19 @@ const randomColor = colorPattern => {
       return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 
     case values.COLOR_PATTERNS.RGB:
-      const red = Math.floor(Math.random() * values.MAX_RGB_VALUE) + 1;
-      const green = Math.floor(Math.random() * values.MAX_RGB_VALUE) + 1;
-      const blue = Math.floor(Math.random() * values.MAX_RGB_VALUE) + 1;
-
-      return `rgb(${red}, ${green}, ${blue})`;
+      return `rgb(${randomColorRGB()})`;
 
     case values.COLOR_PATTERNS.HEX:
-      return "#" + ((Math.random() * 0xffffff) << 0).toString(16);
+      const rgb = randomColorRGB();
+      return (
+        "#" +
+        rgb
+          .map(e => {
+            e = e.toString(16);
+            return e.length === 1 ? (e += "0") : e;
+          })
+          .join("")
+      );
     default:
       throw new Error("Invalid color pattern");
   }
@@ -71,12 +84,20 @@ const similarColorForRGB = color => {
         .slice(0, -1) // removes ')' at the end
         .split(",")
         .map(e => Number(e.trim()))
-    ) // split into red, green and blue // adds random factor into each and
+    ).join("") // split into red, green and blue // adds random factor into each and
   })`; // returns in the rgb(#, #, #) format
 };
 
 const similarColorForHEX = color =>
-  rgbToHex(similarColorForRGBHelper(hexToRgb(color)));
+  "#" +
+  similarColorForRGBHelper(hexToRgb(color))
+    .map(e => {
+      e = e.endsWith(",") ? e.slice(0, -1) : e;
+      return Number(e)
+        .toString(16)
+        .padStart(2, "0");
+    })
+    .join("");
 
 const similarColor = (color, colorPattern) => {
   switch (colorPattern) {
@@ -112,6 +133,7 @@ const colorsWithSimilar = (
     ] = similarColor(colors[chosenOne], colorPattern);
   }
 
+  console.log(colors);
   return colors;
 };
 
