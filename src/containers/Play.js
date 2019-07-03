@@ -52,16 +52,18 @@ const Play = props => {
   }
 
   function gotWrongAnswer(clickedIndex) {
-    const newColors = [...colorData.colors];
-    newColors[clickedIndex] = values.BACKGROUND_COLOR;
-    setColorData({
-      ...colorData,
-      colors: newColors
-    });
+    if (colorData.colors[clickedIndex] !== values.BACKGROUND_COLOR) {
+      const newColors = [...colorData.colors];
+      newColors[clickedIndex] = values.BACKGROUND_COLOR;
+      setColorData({
+        ...colorData,
+        colors: newColors
+      });
 
-    const newTriesLeft = triesLeft - 1;
-    setTriesLeft(newTriesLeft);
-    if (newTriesLeft === 0) setGameOver(true);
+      const newTriesLeft = triesLeft - 1;
+      setTriesLeft(newTriesLeft);
+      if (newTriesLeft === 0) setGameOver(true);
+    }
   }
 
   function resetColors(difficulty) {
