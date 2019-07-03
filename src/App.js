@@ -6,7 +6,7 @@ import { COLOR_PATTERNS } from "./values";
 function App() {
   return (
     <div className="App">
-      <Play colorPattern={COLOR_PATTERNS.RGB} />
+      <Play colorPattern={COLOR_PATTERNS.HEX} />
     </div>
   );
 }

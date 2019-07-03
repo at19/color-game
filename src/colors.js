@@ -1,6 +1,16 @@
 import * as values from "./values";
 
-const randomFactor = Math.floor(Math.random() * 10);
+const _factor = Math.floor(Math.random() * 10);
+const randomFactor = Math.round(Math.random()) ? _factor : -_factor;
+
+const hexToRgb = hex =>
+  /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i
+    .exec(hex)
+    .slice(1)
+    .map(e => parseInt(e, 16));
+
+const rgbToHex = rgb =>
+  "#" + rgb.map(x => x.toString(16).padStart(2, "0")).join("");
 
 const randomColor = colorPattern => {
   switch (colorPattern) {
@@ -34,12 +44,12 @@ const randomColor = colorPattern => {
 const similarColorForHSL = color => {
   return `hsl(${color
     .substring(4) // removes 'hsl(' (at the front)
-    .split(")")[0] // removes ')' (at the end)
+    .slice(0, -1) // removes ')' (at the end)
     .split(",") // ex: "12, 25%, 3%" => [12, 25%, 3%]
     .map(e => {
       if (e[e.length - 1] === "%") {
         e = Number(e.slice(0, -1).trim());
-        e += Math.round(Math.random()) ? -randomFactor : randomFactor;
+        e += randomFactor;
         e = e.toString() + "%";
       }
       return e;
@@ -47,13 +57,26 @@ const similarColorForHSL = color => {
     .join(",")})`;
 }; // joins the array and returns it
 
-const similarColorForRGB = color => {
-  color
-    .substring(4)
-    .split(")")[0]
-    .split(",")
-    .map(e => console.log(e.trim()));
+const similarColorForRGBHelper = rgb => {
+  rgb = rgb.map(e => `${e + randomFactor},`);
+  rgb[rgb.length - 1] = rgb[rgb.length - 1].slice(0, -1);
+  return rgb;
 };
+
+const similarColorForRGB = color => {
+  return `rgb(${
+    similarColorForRGBHelper(
+      color
+        .substring(4) // removes 'rgb('
+        .slice(0, -1) // removes ')' at the end
+        .split(",")
+        .map(e => Number(e.trim()))
+    ) // split into red, green and blue // adds random factor into each and
+  })`; // returns in the rgb(#, #, #) format
+};
+
+const similarColorForHEX = color =>
+  rgbToHex(similarColorForRGBHelper(hexToRgb(color)));
 
 const similarColor = (color, colorPattern) => {
   switch (colorPattern) {
@@ -62,6 +85,7 @@ const similarColor = (color, colorPattern) => {
     case values.COLOR_PATTERNS.RGB:
       return similarColorForRGB(color);
     case values.COLOR_PATTERNS.HEX:
+      return similarColorForHEX(color);
     default:
       break;
   }
