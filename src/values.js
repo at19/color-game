@@ -1,9 +1,9 @@
 export const MAX_HUE_VALUE = 360;
 export const MAX_SATURATION_VALUE = 90;
 export const MAX_LIGHTNESS_VALUE = 85;
-export const MIN_LIGHTNESS_VALUE = 7;
 
 export const MAX_RGB_VALUE = 200;
+export const MIN_HSL_RGB_VALUE = 25;
 
 export const DIFFICULTIES = [
   {
@@ -11,35 +11,40 @@ export const DIFFICULTIES = [
     minimumPoints: 0,
     numberOfColors: 3,
     similarColors: 0,
-    headerColor: "hsl(0, 0%, 20%)" // Gray
+    headerColor: "hsl(0, 0%, 20%)", // Gray
+    canLoadNewColors: true
   },
   {
     // Difficulty 1
     minimumPoints: 50,
     numberOfColors: 6,
     similarColors: 1,
-    headerColor: "hsl(0, 25%, 97%)" // Green
+    headerColor: "hsl(0, 25%, 97%)", // Green
+    canLoadNewColors: true
   },
   {
     // Difficulty 2
     minimumPoints: 100,
     numberOfColors: 6,
     similarColors: 2,
-    headerColor: "hsl(0, 25%, 97%)" // Blue
+    headerColor: "hsl(0, 25%, 97%)", // Blue
+    canLoadNewColors: false
   },
   {
     // Difficulty 3
     minimumPoints: 200,
     numberOfColors: 9,
     similarColors: 4,
-    headerColor: "hsl(0, 25%, 97%)" // Purple
+    headerColor: "hsl(0, 25%, 97%)", // Purple
+    canLoadNewColors: false
   },
   {
     // Difficulty 4
     minimumPoints: 350,
     numberOfColors: 9,
     similarColors: 5,
-    headerColor: "hsl(0, 25%, 97%)" // Gold
+    headerColor: "hsl(0, 25%, 97%)", // Gold
+    canLoadNewColors: false
   }
 ];
 

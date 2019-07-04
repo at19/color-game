@@ -1,7 +1,7 @@
 import React from "react";
 import "./Colors.css";
 
-import ColorTile from "../components/ColorTile";
+import ColorTile from "../../components/ColorTile/ColorTile";
 
 const colorTiles = colors => {
   const colorTiles = [];

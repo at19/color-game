@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import "./Play.css";
 
-import Colors from "./Colors";
-import Header from "./Header";
+import Colors from "../Colors/Colors";
+import Header from "../Header/Header";
 
-import Modal from "../components/Modal";
+import Modal from "../../components/Modal/Modal";
 
-import * as values from "../values";
-import { getColorData } from "../colors";
+import * as values from "../../values";
+import { getColorData } from "../../colors";
 
 const Play = props => {
   // useState
@@ -71,7 +71,10 @@ const Play = props => {
   }
 
   function playAgain() {
+    setGameOver(false);
+    setDifficulty(values.ENTRY_DIFFICULTY);
     setPoints(values.MIN_POINTS);
+    setTriesLeft(values.MAX_TRIES);
     setColorData(getColorData(values.ENTRY_DIFFICULTY, props.colorPattern));
   }
 
@@ -94,7 +97,11 @@ const Play = props => {
       <Header
         headerColor={values.DIFFICULTIES[difficulty].headerColor}
         chosenColor={colorData.colors[colorData.chosenOne]}
-        resetColors={() => resetColors(difficulty)}
+        resetColors={() =>
+          values.DIFFICULTIES[difficulty].canLoadNewColors
+            ? resetColors(difficulty)
+            : null
+        }
         triesLeft={triesLeft}
       />
       <Colors colors={colorData.colors} onClick={e => onColorsClick(e)} />

@@ -13,7 +13,9 @@ const header = props => {
         {props.chosenColor}
       </h2>
       <div className="header__buttons">
-        <button onClick={props.resetColors}>New Colors</button>
+        {props.resetColors !== null ? ( // If props.resetColors isn't null, then load New Colors button
+          <button onClick={props.resetColors}>New Colors</button>
+        ) : null}
       </div>
       <p className="header__subtext">Tries Left: {props.triesLeft}</p>
     </div>

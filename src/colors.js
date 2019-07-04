@@ -1,6 +1,6 @@
 import * as values from "./values";
 
-const _factor = Math.floor(Math.random() * 16) + 5;
+const _factor = Math.floor(Math.random() * 16) + 5; // between 5 - 20
 const randomFactor = Math.round(Math.random()) ? _factor : -_factor;
 
 function hexToRgb(hex) {
@@ -13,9 +13,18 @@ function hexToRgb(hex) {
 }
 
 const randomColorRGB = () => {
-  const red = Math.floor(Math.random() * values.MAX_RGB_VALUE) + 1;
-  const green = Math.floor(Math.random() * values.MAX_RGB_VALUE) + 1;
-  const blue = Math.floor(Math.random() * values.MAX_RGB_VALUE) + 1;
+  const red =
+    Math.floor(
+      Math.random() * (values.MAX_RGB_VALUE - values.MIN_HSL_RGB_VALUE + 1)
+    ) + values.MIN_HSL_RGB_VALUE;
+  const green =
+    Math.floor(
+      Math.random() * (values.MAX_RGB_VALUE - values.MIN_HSL_RGB_VALUE + 1)
+    ) + values.MIN_HSL_RGB_VALUE;
+  const blue =
+    Math.floor(
+      Math.random() * (values.MAX_RGB_VALUE - values.MIN_HSL_RGB_VALUE + 1)
+    ) + values.MIN_HSL_RGB_VALUE;
 
   return [red, green, blue];
 };
@@ -25,16 +34,17 @@ const randomColor = colorPattern => {
     case values.COLOR_PATTERNS.HSL:
       const hue = Math.floor(Math.random() * values.MAX_HUE_VALUE) + 1;
       const saturation =
-        Math.floor(Math.random() * values.MAX_SATURATION_VALUE) + 1;
+        Math.floor(
+          Math.random() *
+            (values.MAX_SATURATION_VALUE - values.MIN_HSL_RGB_VALUE + 1)
+        ) + values.MIN_HSL_RGB_VALUE;
       const lightness =
         Math.floor(
           Math.random() *
-            (values.MAX_LIGHTNESS_VALUE - values.MIN_LIGHTNESS_VALUE)
-        ) +
-        1 +
-        values.MIN_LIGHTNESS_VALUE;
-      return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-
+            (values.MAX_LIGHTNESS_VALUE - values.MIN_HSL_RGB_VALUE + 1)
+        ) + values.MIN_HSL_RGB_VALUE;
+      return `hsl(${hue}, ${saturation}%, ${lightness}%)`; // saturation and lightness is between
+    // MIN_HSL_RGB_VALUE and the corresponding MAX value
     case values.COLOR_PATTERNS.RGB:
       return `rgb(${randomColorRGB()})`;
 
