@@ -1,12 +1,21 @@
 import React from "react";
 import "./ColorTile.css";
 
-const colorTile = props => (
-  <div
-    className="tile"
-    style={{ backgroundColor: props.backgroundColor }}
-    id={props.whichOne}
-  />
-);
+import { BACKGROUND_COLOR } from "../../values";
 
-export default colorTile;
+const ColorTile = props => {
+  return (
+    <div
+      className={
+        props.backgroundColor === BACKGROUND_COLOR
+          ? "tile"
+          : "tile tile--modified"
+      }
+      // className="tile"
+      style={{ backgroundColor: props.backgroundColor }}
+      id={props.whichOne}
+    />
+  );
+};
+
+export default ColorTile;

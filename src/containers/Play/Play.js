@@ -36,13 +36,17 @@ const Play = props => {
   const gameOverModal = () =>
     gameOver ? <Modal points={points} playAgain={playAgain} /> : null;
 
+  function difficultyUp() {
+    setTriesLeft(values.MAX_TRIES);
+  }
+
   function gotCorrectAnswer() {
     let newPoints = points + values.POINTS_ADDITION;
     let newDifficulty = getNewDifficulty(newPoints);
     const oldDifficulty = difficulty;
 
     if (oldDifficulty !== newDifficulty) {
-      setTriesLeft(values.MAX_TRIES);
+      difficultyUp();
     }
 
     setPoints(newPoints);
@@ -81,7 +85,8 @@ const Play = props => {
   function onColorsClick(e) {
     if (triesLeft > 0) {
       const clickedIndex = Number(e.target.id);
-      if (e.target.className === "tile") {
+      const className = `${e.target.className}`;
+      if (className.includes("tile")) {
         clickedIndex === colorData.chosenOne
           ? gotCorrectAnswer()
           : gotWrongAnswer(clickedIndex);
