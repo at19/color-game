@@ -9,6 +9,20 @@ import Modal from "../../components/Modal/Modal";
 import * as values from "../../values";
 import { getColorData } from "../../colors";
 
+function getNewDifficulty(points) {
+  let newDifficulty = 0;
+  if (points >= values.DIFFICULTIES[4].minimumPoints) {
+    newDifficulty = 4;
+  } else if (points >= values.DIFFICULTIES[3].minimumPoints) {
+    newDifficulty = 3;
+  } else if (points >= values.DIFFICULTIES[2].minimumPoints) {
+    newDifficulty = 2;
+  } else if (points >= values.DIFFICULTIES[1].minimumPoints) {
+    newDifficulty = 1;
+  }
+  return newDifficulty;
+}
+
 const Play = props => {
   // useState
   const [points, setPoints] = useState(values.MIN_POINTS);
@@ -24,18 +38,8 @@ const Play = props => {
 
   function gotCorrectAnswer() {
     let newPoints = points + values.POINTS_ADDITION;
-    let newDifficulty = 0;
+    let newDifficulty = getNewDifficulty(newPoints);
     const oldDifficulty = difficulty;
-
-    if (newPoints >= values.DIFFICULTIES[4].minimumPoints) {
-      newDifficulty = 4;
-    } else if (newPoints >= values.DIFFICULTIES[3].minimumPoints) {
-      newDifficulty = 3;
-    } else if (newPoints >= values.DIFFICULTIES[2].minimumPoints) {
-      newDifficulty = 2;
-    } else if (newPoints >= values.DIFFICULTIES[1].minimumPoints) {
-      newDifficulty = 1;
-    }
 
     if (oldDifficulty !== newDifficulty) {
       setTriesLeft(values.MAX_TRIES);
@@ -76,14 +80,11 @@ const Play = props => {
 
   function onColorsClick(e) {
     if (triesLeft > 0) {
-      e.preventDefault();
       const clickedIndex = Number(e.target.id);
       if (e.target.className === "tile") {
-        if (clickedIndex === colorData.chosenOne) {
-          gotCorrectAnswer();
-        } else {
-          gotWrongAnswer(clickedIndex);
-        }
+        clickedIndex === colorData.chosenOne
+          ? gotCorrectAnswer()
+          : gotWrongAnswer();
       }
     }
   }
