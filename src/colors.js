@@ -12,56 +12,58 @@ function hexToRgb(hex) {
   return [r, g, b];
 }
 
-const randomColorRGB = () => {
-  const red =
-    Math.floor(
-      Math.random() * (values.MAX_RGB_VALUE - values.MIN_HSL_RGB_VALUE + 1)
-    ) + values.MIN_HSL_RGB_VALUE;
-  const green =
-    Math.floor(
-      Math.random() * (values.MAX_RGB_VALUE - values.MIN_HSL_RGB_VALUE + 1)
-    ) + values.MIN_HSL_RGB_VALUE;
-  const blue =
-    Math.floor(
-      Math.random() * (values.MAX_RGB_VALUE - values.MIN_HSL_RGB_VALUE + 1)
-    ) + values.MIN_HSL_RGB_VALUE;
+const randomNumber = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+const randomRGB = () =>
+  randomNumber(values.MIN_HSL_RGB_VALUE, values.MAX_RGB_VALUE);
 
-  return [red, green, blue];
+const randomColorRGBArray = () =>
+  Array.from({ length: 3 }).map(() => randomRGB());
+
+const randomColorRGB = () => `rgb(${randomColorRGBArray})`;
+
+const randomColorHSL = () => {
+  const hue = randomNumber(1, values.MAX_HUE_VALUE);
+  const saturation = randomNumber(
+    values.MIN_HSL_RGB_VALUE,
+    values.MAX_SATURATION_VALUE
+  );
+  const lightness = randomNumber(
+    values.MIN_HSL_RGB_VALUE,
+    values.MAX_LIGHTNESS_VALUE
+  );
+  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+};
+
+const randomColorHEX = () => {
+  const rgb = randomColorRGBArray();
+  return (
+    "#" +
+    rgb
+      .map(e => {
+        e = e.toString(16);
+        return e.length === 1 ? (e += "0") : e;
+      })
+      .join("")
+  );
 };
 
 const randomColor = colorPattern => {
+  let randomColor;
   switch (colorPattern) {
     case values.COLOR_PATTERNS.HSL:
-      const hue = Math.floor(Math.random() * values.MAX_HUE_VALUE) + 1;
-      const saturation =
-        Math.floor(
-          Math.random() *
-            (values.MAX_SATURATION_VALUE - values.MIN_HSL_RGB_VALUE + 1)
-        ) + values.MIN_HSL_RGB_VALUE;
-      const lightness =
-        Math.floor(
-          Math.random() *
-            (values.MAX_LIGHTNESS_VALUE - values.MIN_HSL_RGB_VALUE + 1)
-        ) + values.MIN_HSL_RGB_VALUE;
-      return `hsl(${hue}, ${saturation}%, ${lightness}%)`; // saturation and lightness is between
-    // MIN_HSL_RGB_VALUE and the corresponding MAX value
+      randomColor = randomColorHSL();
+      break;
     case values.COLOR_PATTERNS.RGB:
-      return `rgb(${randomColorRGB()})`;
-
+      randomColor = randomColorRGB();
+      break;
     case values.COLOR_PATTERNS.HEX:
-      const rgb = randomColorRGB();
-      return (
-        "#" +
-        rgb
-          .map(e => {
-            e = e.toString(16);
-            return e.length === 1 ? (e += "0") : e;
-          })
-          .join("")
-      );
+      randomColor = randomColorHEX();
+      break;
     default:
       throw new Error("Invalid color pattern");
   }
+  return randomColor;
 };
 
 const similarColorForHSL = color => {
@@ -143,7 +145,6 @@ const colorsWithSimilar = (
     ] = similarColor(colors[chosenOne], colorPattern);
   }
 
-  console.log(colors);
   return colors;
 };
 
