@@ -19,12 +19,8 @@ const Play = props => {
   );
   const [gameOver, setGameOver] = useState(false);
 
-  function getGameOverModal() {
-    if (gameOver) {
-      const modal = <Modal points={points} playAgain={playAgain} />;
-      return modal;
-    }
-  }
+  const gameOverModal = () =>
+    gameOver ? <Modal points={points} playAgain={playAgain} /> : null;
 
   function gotCorrectAnswer() {
     let newPoints = points + values.POINTS_ADDITION;
@@ -105,7 +101,7 @@ const Play = props => {
         triesLeft={triesLeft}
       />
       <Colors colors={colorData.colors} onClick={e => onColorsClick(e)} />
-      {getGameOverModal()}
+      {gameOverModal()}
     </div>
   );
 };

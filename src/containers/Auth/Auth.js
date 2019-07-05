@@ -1,7 +1,7 @@
 import React from "react";
 import "./Auth.css";
 
-const auth = props => {
+const auth = () => {
   return <div>Auth</div>;
 };
 
