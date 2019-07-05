@@ -99,9 +99,9 @@ const Play = props => {
       <Header
         headerColor={values.DIFFICULTIES[difficulty].headerColor}
         chosenColor={colorData.colors[colorData.chosenOne]}
-        resetColors={() =>
+        resetColors={
           values.DIFFICULTIES[difficulty].canLoadNewColors
-            ? resetColors(difficulty)
+            ? () => resetColors(difficulty)
             : null
         }
         triesLeft={triesLeft}

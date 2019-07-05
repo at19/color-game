@@ -1,7 +1,9 @@
 import * as values from "./values";
 
-const _factor = Math.floor(Math.random() * 16) + 5; // between 5 - 20
-const randomFactor = Math.round(Math.random()) ? _factor : -_factor;
+const randomFactor = () => {
+  const _factor = randomNumber(5, 20);
+  return Math.round(Math.random()) ? _factor : -_factor;
+};
 
 function hexToRgb(hex) {
   const bigint = parseInt(hex.slice(1), 16);
@@ -20,7 +22,7 @@ const randomRGB = () =>
 const randomColorRGBArray = () =>
   Array.from({ length: 3 }).map(() => randomRGB());
 
-const randomColorRGB = () => `rgb(${randomColorRGBArray})`;
+const randomColorRGB = () => `rgb(${randomColorRGBArray()})`;
 
 const randomColorHSL = () => {
   const hue = randomNumber(1, values.MAX_HUE_VALUE);
@@ -74,7 +76,7 @@ const similarColorForHSL = color => {
     .map(e => {
       if (e[e.length - 1] === "%") {
         e = Number(e.slice(0, -1).trim());
-        e += randomFactor;
+        e += randomFactor();
         e = e.toString() + "%";
       }
       return e;
@@ -83,7 +85,7 @@ const similarColorForHSL = color => {
 }; // joins the array and returns it
 
 const similarColorForRGBHelper = rgb => {
-  rgb = rgb.map(e => `${e + randomFactor},`);
+  rgb = rgb.map(e => `${e + randomFactor()},`);
   rgb[rgb.length - 1] = rgb[rgb.length - 1].slice(0, -1);
   return rgb;
 };
