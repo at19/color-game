@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Modal.css";
 
-export default props => {
+const modal = props => {
   return (
     <div className="modal">
       <div className="modal__body">
@@ -17,3 +17,5 @@ export default props => {
     </div>
   );
 };
+
+export default modal;

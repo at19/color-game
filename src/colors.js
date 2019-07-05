@@ -112,16 +112,21 @@ const similarColorForHEX = color =>
     .join("");
 
 const similarColor = (color, colorPattern) => {
+  let similarColor;
   switch (colorPattern) {
     case values.COLOR_PATTERNS.HSL:
-      return similarColorForHSL(color);
+      similarColor = similarColorForHSL(color);
+      break;
     case values.COLOR_PATTERNS.RGB:
-      return similarColorForRGB(color);
+      similarColor = similarColorForRGB(color);
+      break;
     case values.COLOR_PATTERNS.HEX:
-      return similarColorForHEX(color);
+      similarColor = similarColorForHEX(color);
+      break;
     default:
       break;
   }
+  return similarColor;
 };
 
 const colorsWithSimilar = (
