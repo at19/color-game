@@ -84,7 +84,7 @@ const Play = props => {
       if (e.target.className === "tile") {
         clickedIndex === colorData.chosenOne
           ? gotCorrectAnswer()
-          : gotWrongAnswer();
+          : gotWrongAnswer(clickedIndex);
       }
     }
   }

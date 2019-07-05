@@ -1,7 +1,14 @@
 .tile {
   background-color: hsl(0, 0%, 10%);
-  padding: 5em;
+  padding: 3em;
   max-width: 5em;
-  margin: 1.5em;
+  margin: 1.5em auto;
+  margin-top: -1em;
   transition: background-color 0.3s ease-out;
+}
+
+@media (min-width: 35em) {
+  .tile {
+    padding: 5em;
+  }
 }

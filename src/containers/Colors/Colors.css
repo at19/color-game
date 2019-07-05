@@ -3,4 +3,6 @@
   max-width: 39em; /* ColorTile: 3 x (max-width: 5em + padding: 5em) + 6 x (margin: 1.5em)*/
   flex-wrap: wrap;
   margin: 3em auto;
+  justify-content: center;
+  /* flex-direction: column; */
 }
