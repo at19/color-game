@@ -7,8 +7,6 @@ const header = props => {
   const lightness = props.headerColor.split(",")[2].split("%")[0];
   const textColor = lightness < 45 ? light : dark;
 
-  console.log(props.resetColors);
-
   return (
     <div className="header" style={{ backgroundColor: props.headerColor }}>
       <h2 className="header__color" style={{ color: textColor }}>

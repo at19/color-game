@@ -1,5 +1,8 @@
 import * as values from "./values";
 
+const randomNumber = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
 const randomFactor = () => {
   const _factor = randomNumber(5, 20);
   return Math.round(Math.random()) ? _factor : -_factor;
@@ -14,8 +17,6 @@ function hexToRgb(hex) {
   return [r, g, b];
 }
 
-const randomNumber = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1)) + min;
 const randomRGB = () =>
   randomNumber(values.MIN_HSL_RGB_VALUE, values.MAX_RGB_VALUE);
 

@@ -11,7 +11,7 @@
 }
 
 .tile--modified {
-  box-shadow: 0.1em 0.1em 0.5em rgba(0, 0, 0, 0.2);
+  box-shadow: 0.1em 0.1em 0.5em rgba(0, 0, 0, 0.15);
 }
 @media (min-width: 35em) {
   .tile {

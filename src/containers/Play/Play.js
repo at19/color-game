@@ -8,6 +8,7 @@ import Modal from "../../components/Modal/Modal";
 
 import * as values from "../../values";
 import { getColorData } from "../../colors";
+import { updateHighScore } from "../../firebase";
 
 function getNewDifficulty(points) {
   let newDifficulty = 0;
@@ -32,6 +33,12 @@ const Play = props => {
     getColorData(difficulty, props.colorPattern)
   );
   const [gameOver, setGameOver] = useState(false);
+
+  function gameOverWork() {
+    setGameOver(true);
+
+    updateHighScore(props.colorPattern, points);
+  }
 
   const gameOverModal = () =>
     gameOver ? <Modal points={points} playAgain={playAgain} /> : null;
@@ -66,7 +73,7 @@ const Play = props => {
 
       const newTriesLeft = triesLeft - 1;
       setTriesLeft(newTriesLeft);
-      if (newTriesLeft === 0) setGameOver(true);
+      if (newTriesLeft === 0) gameOverWork();
     }
   }
 
