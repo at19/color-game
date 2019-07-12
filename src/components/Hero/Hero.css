@@ -1,0 +1,72 @@
+.hero {
+  background-image: radial-gradient(hsl(325, 70%, 50%), hsl(315, 80%, 40%));
+  /* background-color: hsl(0, 25%, 97%); */
+  /* padding: 35vh; */
+  padding: 3em 12.5em 5em 0;
+}
+
+.hero__inner {
+  width: 100vw;
+  text-align: center;
+  /* margin-top: -8em; */
+}
+
+.hero__cta,
+.hero__cta:visited {
+  /* display: inline-block;
+  color: hsl(0, 25%, 97%);
+  text-decoration: none;
+  font-size: 1.95rem;
+  letter-spacing: -0.02em;
+  margin-top: 0;
+  margin-bottom: 0.625rem; */
+
+  display: inline-block;
+  color: hsl(0, 25%, 97%);
+  border-radius: 0.2em;
+  text-decoration: none;
+  font-size: 1rem;
+
+  padding: 0.6em 1em;
+  background-color: hsl(315, 80%, 25%);
+  border: none;
+
+  transition: color 0.05s ease-out;
+}
+
+.hero__cta:hover {
+  color: hsl(0, 25%, 90%);
+  background-color: hsl(315, 90%, 30%);
+}
+
+.hero__inner h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+
+  color: hsl(325, 35%, 95%);
+}
+
+.hero__select {
+  display: inline-block;
+  text-align: left;
+  margin-right: 1.5em;
+  width: 5.25em;
+}
+
+@media (min-width: 35em) {
+  .hero {
+    padding-top: 10em;
+    padding-bottom: 10em;
+  }
+
+  .hero__inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding-right: 3em;
+    text-align: right;
+  }
+
+  .hero__inner h2 {
+    font-size: 1.95rem;
+  }
+}

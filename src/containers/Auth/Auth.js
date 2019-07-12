@@ -60,11 +60,26 @@ const Auth = ({ signInUser, createUser }) => {
           <>
             <Form noValidate>
               {!isSignIn ? (
-                <Field placeholder="Name" type="text" name="name" />
+                <Field
+                  disabled={isSubmitting}
+                  placeholder="Name"
+                  type="text"
+                  name="name"
+                />
               ) : null}
-              <Field placeholder="Email" type="email" name="email" />
+              <Field
+                disabled={isSubmitting}
+                placeholder="Email"
+                type="email"
+                name="email"
+              />
               <ErrorMessage className="error" name="email" component="div" />
-              <Field placeholder="Password" type="password" name="password" />
+              <Field
+                disabled={isSubmitting}
+                placeholder="Password"
+                type="password"
+                name="password"
+              />
               {!isSignIn ? (
                 <ErrorMessage
                   className="error"
@@ -72,7 +87,7 @@ const Auth = ({ signInUser, createUser }) => {
                   component="div"
                 />
               ) : null}
-              <button type="submit" disabled={isSubmitting}>
+              <button className="primary" type="submit" disabled={isSubmitting}>
                 Next
               </button>
               {response}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Play.css";
 
 import Colors from "../Colors/Colors";
@@ -103,18 +104,22 @@ const Play = props => {
 
   return (
     <div className="Play">
-      <Header
-        headerColor={values.DIFFICULTIES[difficulty].headerColor}
-        chosenColor={colorData.colors[colorData.chosenOne]}
-        resetColors={
-          values.DIFFICULTIES[difficulty].canLoadNewColors
-            ? () => resetColors(difficulty)
-            : null
-        }
-        triesLeft={triesLeft}
-      />
-      <Colors colors={colorData.colors} onClick={e => onColorsClick(e)} />
-      {gameOverModal()}
+      <Link to="/">Go Back</Link>
+      <div className="Play__inner">
+        <Header
+          headerColor={values.DIFFICULTIES[difficulty].headerColor}
+          chosenColor={colorData.colors[colorData.chosenOne]}
+          resetColors={
+            values.DIFFICULTIES[difficulty].canLoadNewColors
+              ? () => resetColors(difficulty)
+              : null
+          }
+          triesLeft={triesLeft}
+          difficulty={difficulty + 1}
+        />
+        <Colors colors={colorData.colors} onClick={e => onColorsClick(e)} />
+        {gameOverModal()}
+      </div>
     </div>
   );
 };

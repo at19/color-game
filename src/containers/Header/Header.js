@@ -8,7 +8,7 @@ const header = props => {
   const textColor = lightness < 45 ? light : dark;
 
   return (
-    <div className="header" style={{ backgroundColor: props.headerColor }}>
+    <div className="header" style={{ background: props.headerColor }}>
       <h2 className="header__color" style={{ color: textColor }}>
         {props.chosenColor}
       </h2>
@@ -17,7 +17,13 @@ const header = props => {
           <button onClick={props.resetColors}>New Colors</button>
         ) : null}
       </div>
-      <p className="header__subtext">Tries Left: {props.triesLeft}</p>
+      <p
+        className="header__subtext"
+        style={{ borderColor: props.triesLeft < 3 ? "red" : "green" }}
+      >
+        Tries Left: {props.triesLeft}
+      </p>
+      <p className="header__subtext">Level: {props.difficulty}</p>
     </div>
   );
 };

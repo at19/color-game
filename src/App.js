@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import "./App.css";
 
-import LandingPage from "./containers/LandingPage";
-import LoggedInPage from "./containers/LoggedInPage";
+import MainPage from "./containers/MainPage";
 import Play from "./containers/Play/Play";
 import Auth from "./containers/Auth/Auth";
 
@@ -12,51 +12,62 @@ import {
   signOutUser,
   createUser,
   addUserToFirestore,
-  getAuthObserver
+  getLeaderboardContent,
+  getCurrentUser,
+  getUserData
 } from "./firebase";
-import { COLOR_PATTERNS } from "./values";
+
+function setLocalStorageItem(key, value) {
+  localStorage.setItem(key, value);
+  document.dispatchEvent(new Event("localStorageItemInserted"));
+}
 
 function App() {
   const [userInfo, setUserInfo] = useState(
-    localStorage.getItem("IS_USER_LOGGED_IN")
+    parseInt(localStorage.getItem("IS_USER_LOGGED_IN"))
+      ? getCurrentUser()
+      : null
   );
   const [redirectElement, setRedirectElement] = useState(null);
-  const [colorModel, setColorModel] = useState(COLOR_PATTERNS.RGB);
-
-  useEffect(() => {
-    getAuthObserver(user => {
-      setUserInfo(user);
-    });
-  });
+  const [colorModel, setColorModel] = useState(
+    localStorage.getItem("COLOR_MODEL")
+  );
 
   function performLoggedInWork(res) {
-    localStorage.setItem("IS_USER_LOGGED_IN", true);
+    localStorage.setItem("IS_USER_LOGGED_IN", 1);
+    setUserInfo(res.user);
     setRedirectElement(<Redirect to="/" />);
-    setUserInfo(res);
-  }
 
-  function signIn(email, password) {
-    return signInUser(email, password).then(res => {
-      performLoggedInWork(res);
+    getUserData(res.user.uid).then(res => {
+      const names = res.docs[0].data().name.split(" ");
+      const lastName = names[names.length - 1];
+      setLocalStorageItem("USER_LAST_NAME", lastName);
     });
   }
 
-  function create(name, email, password) {
-    return createUser(name, email, password).then(res => {
-      performLoggedInWork(res);
-      const { uid, email } = res.user;
-      addUserToFirestore(uid, name, email);
-    });
+  async function signIn(email, password) {
+    const res = await signInUser(email, password);
+    performLoggedInWork(res);
+  }
+
+  async function create(name, email, password) {
+    const res = await createUser(name, email, password);
+    performLoggedInWork(res);
+    const { uid } = res.user;
+    addUserToFirestore(uid, name, email);
   }
 
   function signOut() {
     signOutUser().then(() => {
-      localStorage.setItem("IS_USER_LOGGED_IN", false);
+      localStorage.setItem("IS_USER_LOGGED_IN", 0);
+      setUserInfo(null);
+      setLocalStorageItem("USER_LAST_NAME", 0);
     });
   }
 
   function handleColorModelChange(colorModel) {
     setColorModel(colorModel);
+    localStorage.setItem("COLOR_MODEL", colorModel);
   }
 
   return (
@@ -66,29 +77,34 @@ function App() {
           <ColorModelContext.Provider value={colorModel}>
             <Route
               path="/login"
-              render={() => <Auth signInUser={signIn} createUser={create} />}
+              render={() => (
+                <AuthContext.Consumer>
+                  {auth => {
+                    return auth !== null ? (
+                      <Redirect to="/" />
+                    ) : (
+                      <Auth signInUser={signIn} createUser={create} />
+                    );
+                  }}
+                </AuthContext.Consumer>
+              )}
             />
-            <AuthContext.Consumer>
-              {auth => {
-                return (
-                  <Route
-                    path="/"
-                    exact
-                    render={() =>
-                      auth !== null ? (
-                        <LoggedInPage signOut={signOut} />
-                      ) : (
-                        <LandingPage
-                          handleColorModelChange={model =>
-                            handleColorModelChange(model)
-                          }
-                        />
-                      )
-                    }
-                  />
-                );
-              }}
-            </AuthContext.Consumer>
+            <Route
+              path="/"
+              exact
+              render={() => (
+                <MainPage
+                  signIn={signIn}
+                  signOut={signOut}
+                  handleColorModelChange={model =>
+                    handleColorModelChange(model)
+                  }
+                  leaderboardContent={colorPattern =>
+                    getLeaderboardContent(colorPattern)
+                  }
+                />
+              )}
+            />
             <ColorModelContext.Consumer>
               {model => (
                 <Route

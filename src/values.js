@@ -11,7 +11,8 @@ export const DIFFICULTIES = [
     minimumPoints: 0,
     numberOfColors: 3,
     similarColors: 0,
-    headerColor: "hsl(0, 0%, 20%)", // Gray
+    headerColor: "hsl(0, 25%, 97%)",
+    // headerColor: "radial-gradient(hsl(300, 20%, 30%), hsl(295, 20%, 30%))", // Gray
     canLoadNewColors: true
   },
   {
@@ -36,6 +37,7 @@ export const DIFFICULTIES = [
     numberOfColors: 9,
     similarColors: 4,
     headerColor: "hsl(0, 25%, 97%)", // Purple
+    // headerColor: "radial-gradient(hsl(300, 20%, 30%), hsl(295, 20%, 30%))",
     canLoadNewColors: false
   },
   {

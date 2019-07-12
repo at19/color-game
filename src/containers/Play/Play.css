@@ -2,3 +2,9 @@
   background-color: hsl(0, 25%, 97%);
   min-height: 100vh;
 }
+
+.Play__inner {
+  /* background-color: hsl(0, 25%, 97%); */
+  max-width: 1080px;
+  margin: 0 auto;
+}

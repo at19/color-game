@@ -8,11 +8,11 @@ const Modal = props => {
   return (
     <div className="modal">
       <div className="modal__body">
-        <p>Points: {props.points}</p>
+        <p className="celebratory">You Won {props.points} points!</p>
         <AuthContext.Consumer>
           {auth =>
             auth !== null ? null : (
-              <p>
+              <p className="subtext">
                 <Link to="/login">Login</Link> to save your score, and compete
                 with friends!
               </p>

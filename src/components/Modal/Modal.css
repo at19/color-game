@@ -13,6 +13,7 @@
   max-height: 100%;
   z-index: 1;
   padding: 3em;
+  border-radius: 0.2em;
 }
 
 .modal__overlay {
@@ -22,6 +23,15 @@
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.celebratory {
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.subtext {
+  text-align: center;
 }
 
 @keyframes modal-fadeIn {

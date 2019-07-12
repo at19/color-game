@@ -42,29 +42,64 @@ export function addUserToFirestore(uid, name, email) {
     });
 }
 
-export function getAuthObserver(callback) {
-  return firebase.auth().onAuthStateChanged(callback);
-}
-
 export function signOutUser() {
   return firebase.auth().signOut();
 }
 
 export function updateHighScore(colorPattern, points) {
-  const sortString = `highScore${colorPattern}`;
+  if (firebase.auth().currentUser !== null) {
+    const sortString = `highScore${colorPattern}`;
 
+    const query = firebase
+      .firestore()
+      .collection("users")
+      .where("uid", "==", firebase.auth().currentUser.uid);
+
+    query.get().then(res => {
+      if (res.docs[0].data()[sortString] < points) {
+        // New High Score
+        res.docs[0].ref.update({
+          [sortString]: points
+        });
+      }
+    });
+  }
+  // firebase.firestore().collection("users").orderBy(sortString, "desc")
+}
+
+export function getLeaderboardContent(colorPattern) {
+  const sortString = `highScore${colorPattern}`;
   const query = firebase
     .firestore()
     .collection("users")
-    .where("uid", "==", firebase.auth().currentUser.uid);
+    .orderBy(sortString, "desc");
 
-  query.get().then(res => {
-    if (res.docs[0].data()[sortString] < points) {
-      // New High Score
-      res.docs[0].ref.update({
-        [sortString]: points
-      });
+  // return query.get().then(res => {
+  //   res.docs.map(e => ({
+  //     name: e.data().name,
+  //     points: e.data()[`highScore${colorPattern}`]
+  //   }));
+  // });
+
+  return query.get();
+}
+
+export function getAuthObserver(userIsSignedIn) {
+  return firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      userIsSignedIn(user);
     }
   });
-  // firebase.firestore().collection("users").orderBy(sortString, "desc")
+}
+
+export function getCurrentUser() {
+  return firebase.auth().currentUser;
+}
+
+export function getUserData(uid) {
+  return firebase
+    .firestore()
+    .collection("users")
+    .where("uid", "==", uid)
+    .get();
 }

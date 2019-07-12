@@ -1,8 +1,20 @@
 .colors {
   display: flex;
-  max-width: 39em; /* ColorTile: 3 x (max-width: 5em + padding: 5em) + 6 x (margin: 1.5em)*/
-  flex-wrap: wrap;
-  margin: 3em auto;
-  justify-content: center;
-  /* flex-direction: column; */
+  max-width: 39em;
+  margin: 6vh auto 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+  height: calc(100vh - 19em);
+}
+
+.color-stack {
+  display: flex;
+}
+
+@media (min-width: 35em) {
+  .colors {
+    max-width: 1080px;
+    margin-top: 3vh;
+  }
 }

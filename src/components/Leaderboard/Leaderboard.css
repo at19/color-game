@@ -1,0 +1,40 @@
+.leaderboard {
+  background-color: hsl(0, 25%, 97%);
+  color: #222;
+}
+
+.leaderboard__header {
+  text-align: center;
+  padding-top: 1.5em;
+  margin: 0 0 0.75em 0;
+}
+
+.leaderboard__table {
+  margin: 0 auto;
+}
+
+.leaderboard__table thead th {
+  text-align: left;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  /* background-color: rgba(0, 0, 0, 0.05); */
+}
+
+.leaderboard__table tbody td {
+  background-color: rgba(200, 0, 200, 0.05);
+}
+
+.leaderboard__table td {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-right: 2em;
+}
+
+tr.currentUser {
+  background-color: rgba(0, 200, 0, 0.5);
+  box-shadow: 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.15);
+}
+
+/* .leaderboard__table td + td {
+  padding-top: 2em;
+} */
