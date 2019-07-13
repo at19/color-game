@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import "./Play.css";
 
 import Colors from "../Colors/Colors";
@@ -104,7 +103,6 @@ const Play = props => {
 
   return (
     <div className="Play">
-      <Link to="/">Go Back</Link>
       <div className="Play__inner">
         <Header
           headerColor={values.DIFFICULTIES[difficulty].headerColor}

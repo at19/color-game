@@ -24,80 +24,86 @@ const Auth = ({ signInUser, createUser }) => {
   };
 
   return (
-    <div className="form">
-      <h3>{headerText}</h3>
-      <Formik
-        initialValues={{ email: "", password: "", name: "" }}
-        validate={values => {
-          let errors = {};
-          if (!values.email) {
-            errors.email = "Required";
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = "Invalid email address";
-          }
-          return errors;
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          if (isSignIn) {
-            signInUser(values.email, values.password).catch(error => {
-              // Sign in failed, Show error message
-              setResponse(<div className="error">{error.message}</div>);
-              setSubmitting(false);
-            });
-          } else {
-            createUser(values.name, values.email, values.password).catch(
-              error => {
+    <div className="auth">
+      <div className="form">
+        <h3>{headerText}</h3>
+        <Formik
+          initialValues={{ email: "", password: "", name: "" }}
+          validate={values => {
+            let errors = {};
+            if (!values.email) {
+              errors.email = "Required";
+            } else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            ) {
+              errors.email = "Invalid email address";
+            }
+            return errors;
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            if (isSignIn) {
+              signInUser(values.email, values.password).catch(error => {
+                // Sign in failed, Show error message
                 setResponse(<div className="error">{error.message}</div>);
                 setSubmitting(false);
-              }
-            );
-          }
-        }}
-      >
-        {({ isSubmitting }) => (
-          <>
-            <Form noValidate>
-              {!isSignIn ? (
+              });
+            } else {
+              createUser(values.name, values.email, values.password).catch(
+                error => {
+                  setResponse(<div className="error">{error.message}</div>);
+                  setSubmitting(false);
+                }
+              );
+            }
+          }}
+        >
+          {({ isSubmitting }) => (
+            <>
+              <Form noValidate>
+                {!isSignIn ? (
+                  <Field
+                    disabled={isSubmitting}
+                    placeholder="Name"
+                    type="text"
+                    name="name"
+                  />
+                ) : null}
                 <Field
                   disabled={isSubmitting}
-                  placeholder="Name"
-                  type="text"
-                  name="name"
+                  placeholder="Email"
+                  type="email"
+                  name="email"
                 />
-              ) : null}
-              <Field
-                disabled={isSubmitting}
-                placeholder="Email"
-                type="email"
-                name="email"
-              />
-              <ErrorMessage className="error" name="email" component="div" />
-              <Field
-                disabled={isSubmitting}
-                placeholder="Password"
-                type="password"
-                name="password"
-              />
-              {!isSignIn ? (
-                <ErrorMessage
-                  className="error"
+                <ErrorMessage className="error" name="email" component="div" />
+                <Field
+                  disabled={isSubmitting}
+                  placeholder="Password"
+                  type="password"
                   name="password"
-                  component="div"
                 />
-              ) : null}
-              <button className="primary" type="submit" disabled={isSubmitting}>
-                Next
-              </button>
-              {response}
-            </Form>
-          </>
-        )}
-      </Formik>
-      <button className="secondary" onClick={toggleSignIn}>
-        {toggleButtonText}
-      </button>
+                {!isSignIn ? (
+                  <ErrorMessage
+                    className="error"
+                    name="password"
+                    component="div"
+                  />
+                ) : null}
+                <button
+                  className="primary"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  Next
+                </button>
+                {response}
+              </Form>
+            </>
+          )}
+        </Formik>
+        <button className="secondary" onClick={toggleSignIn}>
+          {toggleButtonText}
+        </button>
+      </div>
     </div>
   );
 };

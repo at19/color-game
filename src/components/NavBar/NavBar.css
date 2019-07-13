@@ -17,7 +17,8 @@
   align-items: center;
 }
 
-.home-link {
+a.home-link {
+  background-color: hsl(0, 25%, 97%);
   color: #222;
   font-size: 1.2rem;
   font-family: Georgia, "Times New Roman", Times, serif;

@@ -1,6 +1,6 @@
 .header {
   margin: 0;
-  padding: 2em 2em 1em 2em;
+  padding: 0.75em 0 0 0.5em;
   transition: background-color 0.8s ease-out;
   border-bottom: 0.2em solid #222;
   border-radius: 0.2em;
@@ -11,26 +11,30 @@
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.055em;
+  margin-top: 0.5em;
 }
 
 .header__subtext {
-  background-color: #fff;
+  background-color: hsl(0, 25%, 97%);
+  color: #222;
   max-width: 7em;
   padding: 0.5em 1.5em;
   border-radius: 0.2em;
   border: 0.1em solid green;
+  margin-left: 1em;
 
   transition: border-color 0.5s ease-out;
 }
 
 .header__buttons button {
-  background-color: hsl(320, 50%, 20%);
+  background-color: hsl(320, 70%, 40%);
   border: none;
   padding: 0.7em;
   border-radius: 0.2em;
   box-shadow: 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.15);
   color: hsl(0, 25%, 97%);
   margin-top: 1em;
+  cursor: pointer;
 
   transition: box-shadow 0.2s ease-out;
 }
@@ -39,11 +43,28 @@
   box-shadow: none;
 }
 
+a {
+  /* display: none; */
+  background-color: #333;
+  color: hsl(0, 25%, 97%);
+  text-decoration: none;
+  border-radius: 0.2em;
+  padding: 0.2em 1em;
+}
+
+.featured {
+  border: 0;
+}
+
 @media (min-width: 35em) {
   .header__buttons button:focus {
     box-shadow: 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.15);
   }
   .header__buttons button:active {
     box-shadow: none;
+  }
+
+  .header__subtext {
+    margin-left: 8em;
   }
 }

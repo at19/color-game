@@ -64,7 +64,6 @@ export function updateHighScore(colorPattern, points) {
       }
     });
   }
-  // firebase.firestore().collection("users").orderBy(sortString, "desc")
 }
 
 export function getLeaderboardContent(colorPattern) {
@@ -73,13 +72,6 @@ export function getLeaderboardContent(colorPattern) {
     .firestore()
     .collection("users")
     .orderBy(sortString, "desc");
-
-  // return query.get().then(res => {
-  //   res.docs.map(e => ({
-  //     name: e.data().name,
-  //     points: e.data()[`highScore${colorPattern}`]
-  //   }));
-  // });
 
   return query.get();
 }

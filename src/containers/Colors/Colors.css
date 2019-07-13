@@ -5,16 +5,22 @@
   flex-direction: column;
   align-items: center;
   justify-content: stretch;
-  height: calc(100vh - 19em);
 }
 
 .color-stack {
   display: flex;
 }
 
-@media (min-width: 35em) {
+@media (min-width: 35em) and (max-height: 50em) {
   .colors {
     max-width: 1080px;
-    margin-top: 3vh;
+    margin-top: 2vh;
+  }
+}
+
+@media (min-width: 35em) and (min-height: 50em) {
+  .colors {
+    max-width: 1080px;
+    margin-top: 12vh;
   }
 }

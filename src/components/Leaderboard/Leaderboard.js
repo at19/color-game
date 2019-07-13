@@ -1,11 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { withRouter } from "react-router-dom";
 import "./Leaderboard.css";
 
 import { AuthContext, ColorModelContext } from "../../contexts";
 
-const Leaderboard = ({ getContent, match }) => {
+const Leaderboard = ({ getContent }) => {
   const formattedContent = async (model, userUid) => {
     const data = await getContent(model);
     const structured = data.docs.map(e => ({
@@ -25,13 +24,11 @@ const Leaderboard = ({ getContent, match }) => {
   // Don't mind the irrelevent name given to the function
   const lastTry = async (model, userUid) => {
     // TODO: Show the loading spinner
-
     const data = await formattedContent(model, userUid);
-
-    // TODO: Hide the loading spinner
 
     if (parseInt(localStorage.getItem("IS_USER_LOGGED_IN")))
       ReactDOM.render(data, document.getElementById("leaderboard__table-body"));
+    // TODO: Hide the loading spinner
   };
 
   return (
@@ -51,7 +48,11 @@ const Leaderboard = ({ getContent, match }) => {
               <tbody id="leaderboard__table-body">
                 <ColorModelContext.Consumer>
                   {model => {
-                    if (auth.uid) lastTry(model, auth.uid); // Loads, formats and renders the leaderboard content
+                    if (auth.uid) {
+                      lastTry(model, auth.uid).catch(error =>
+                        console.log(error)
+                      ); // Loads, formats and renders the leaderboard content
+                    }
                   }}
                 </ColorModelContext.Consumer>
               </tbody>
@@ -65,4 +66,4 @@ const Leaderboard = ({ getContent, match }) => {
   );
 };
 
-export default withRouter(Leaderboard);
+export default Leaderboard;

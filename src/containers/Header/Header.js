@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Header.css";
 
 const header = props => {
@@ -8,7 +9,8 @@ const header = props => {
   const textColor = lightness < 45 ? light : dark;
 
   return (
-    <div className="header" style={{ background: props.headerColor }}>
+    <div className="header">
+      <Link to="/">Go Back</Link>
       <h2 className="header__color" style={{ color: textColor }}>
         {props.chosenColor}
       </h2>
@@ -23,7 +25,12 @@ const header = props => {
       >
         Tries Left: {props.triesLeft}
       </p>
-      <p className="header__subtext">Level: {props.difficulty}</p>
+      <p
+        className="header__subtext featured"
+        style={{ backgroundColor: props.headerColor }}
+      >
+        Level: {props.difficulty}
+      </p>
     </div>
   );
 };

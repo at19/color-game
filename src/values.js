@@ -11,7 +11,7 @@ export const DIFFICULTIES = [
     minimumPoints: 0,
     numberOfColors: 3,
     similarColors: 0,
-    headerColor: "hsl(0, 25%, 97%)",
+    headerColor: "rgba(150, 150, 150, 0.5)",
     // headerColor: "radial-gradient(hsl(300, 20%, 30%), hsl(295, 20%, 30%))", // Gray
     canLoadNewColors: true
   },
@@ -20,7 +20,7 @@ export const DIFFICULTIES = [
     minimumPoints: 50,
     numberOfColors: 6,
     similarColors: 1,
-    headerColor: "hsl(0, 25%, 97%)", // Green
+    headerColor: "rgba(50, 200, 50, 0.5)", // Green
     canLoadNewColors: true
   },
   {
@@ -28,7 +28,7 @@ export const DIFFICULTIES = [
     minimumPoints: 100,
     numberOfColors: 6,
     similarColors: 2,
-    headerColor: "hsl(0, 25%, 97%)", // Blue
+    headerColor: "rgba(25, 100, 200, 0.5)", // Blue
     canLoadNewColors: false
   },
   {
@@ -36,8 +36,7 @@ export const DIFFICULTIES = [
     minimumPoints: 200,
     numberOfColors: 9,
     similarColors: 4,
-    headerColor: "hsl(0, 25%, 97%)", // Purple
-    // headerColor: "radial-gradient(hsl(300, 20%, 30%), hsl(295, 20%, 30%))",
+    headerColor: "rgba(200, 25, 200, 0.7)", // Purple
     canLoadNewColors: false
   },
   {
@@ -45,7 +44,7 @@ export const DIFFICULTIES = [
     minimumPoints: 350,
     numberOfColors: 9,
     similarColors: 5,
-    headerColor: "hsl(0, 25%, 97%)", // Gold
+    headerColor: "rgba(225, 200, 0, 0.7)", // Gold
     canLoadNewColors: false
   }
 ];
