@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import "./App.css";
 
@@ -29,8 +29,9 @@ function App() {
       : null
   );
   const [redirectElement, setRedirectElement] = useState(null);
+  const initialColorModel = useContext(ColorModelContext);
   const [colorModel, setColorModel] = useState(
-    localStorage.getItem("COLOR_MODEL")
+    localStorage.getItem("COLOR_MODEL") || initialColorModel
   );
 
   function performLoggedInWork(res) {
