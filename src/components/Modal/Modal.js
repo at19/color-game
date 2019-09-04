@@ -9,7 +9,7 @@ const Modal = props => {
     <div className="modal">
       <div className="modal__body">
         <p className="celebratory">You Scored {props.points} points!</p>
-        <button>Play again</button>
+        <button onClick={props.playAgain}>Play again</button>
         <AuthContext.Consumer>
           {auth =>
             auth !== null ? null : (
@@ -21,7 +21,7 @@ const Modal = props => {
           }
         </AuthContext.Consumer>
       </div>
-      <div className="modal__overlay" onClick={() => props.playAgain()} />
+      <div className="modal__overlay" onClick={props.playAgain} />
     </div>
   );
 };
